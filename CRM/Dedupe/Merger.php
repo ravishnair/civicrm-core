@@ -506,6 +506,12 @@ INNER JOIN  civicrm_membership membership2 ON membership1.membership_type_id = m
         $result['custom'][] = $key;
       }
     }
+
+    //CRM-13557 suppress hash field during manual merge
+    if ($index = CRM_Utils_Array::value('hash', array_flip($result['contact']))) {
+      unset($result['contact'][$index]);
+    }
+
     return $result;
   }
 
